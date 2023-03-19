@@ -23,6 +23,12 @@ namespace WebDemo.Controllers
             return Ok(result);
         }
 
+        [HttpGet("getSongs")]
+        public async Task<IActionResult> GetSongs()
+        {
+            var result = await _repo.GetSongsAsync();
+            return Ok(result);
+        }
 
         [HttpPost("insertAlbums")]
         public async Task<IActionResult> PostAlbum([FromBody] List<Album> albums)

@@ -48,7 +48,7 @@ namespace WebDemo.Repositories
 
         public async Task<List<Album>> GetAlbumsAsync()
         {
-            var album = new Album();
+            ;
             var albums = new List<Album>();
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
             var sql = "select * from Album";
@@ -62,6 +62,7 @@ namespace WebDemo.Repositories
                 {
                     while (rdr.Read())
                     {
+                        var album = new Album();
                         album.AlbumId = Convert.ToInt32(rdr["AlbumId"]);
                         album.Title = Convert.ToString(rdr["Title"]);
                         album.ReleaseDate = Convert.ToString(rdr["ReleaseDate"]);
@@ -70,16 +71,17 @@ namespace WebDemo.Repositories
                         album.Producer = Convert.ToString(rdr["Length"]);
                         album.SucceededBy = Convert.ToString(rdr["Producer"]);
                         album.RecordedDate = Convert.ToString(rdr["SucceededBy"]);
+                        albums.Add(album);
                     }
-                    albums.Add(album);
                 }
+                cmd.Connection.Close();
             }
             return albums;
         }
 
         public async Task<List<Song>> GetSongsAsync()
         {
-            var song = new Song();
+            
             var songs = new List<Song>();
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
             var sql = "select * from Song";
@@ -93,6 +95,7 @@ namespace WebDemo.Repositories
                 {
                     while (rdr.Read())
                     {
+                        var song = new Song();
                         song.AlbumId = Convert.ToInt32(rdr["AlbumId"]);
                         song.Title = Convert.ToString(rdr["Title"]);
                         song.AlbumName = Convert.ToString(rdr["AlbumName"]);
@@ -100,9 +103,11 @@ namespace WebDemo.Repositories
                         song.Length = Convert.ToString(rdr["Length"]);
                         song.SongWriters = Convert.ToString(rdr["SongWriters"]);
                         song.YouTubeUrl = Convert.ToString(rdr["YouTubeUrl"]);
+                        songs.Add(song);
                     }
-                    songs.Add(song);
+                    
                 }
+                cmd.Connection.Close();
             }
             return songs;
         }
@@ -188,8 +193,6 @@ namespace WebDemo.Repositories
                     cmd.ExecuteNonQuery();
                     connection.Close();
                 }
-
-
             }
             foreach (var song in songs)
             {
