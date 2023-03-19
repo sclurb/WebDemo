@@ -20,11 +20,11 @@ builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
     builder.WithOrigins(corsDomains.ToArray());
     //builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
 }));
-builder.Configuration
-    .SetBasePath(Directory.GetCurrentDirectory())
-    .AddJsonFile("appsettings.json", false, true)
-    .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", false, true)
-    .AddEnvironmentVariables();
+//builder.Configuration
+//    .SetBasePath(Directory.GetCurrentDirectory())
+//    .AddJsonFile("appsettings.json", false, true)
+//    .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", false, true)
+//    .AddEnvironmentVariables();
 builder.Services.AddScoped<IAlbumSongRepository, AlbumSongRepository>();
 
 

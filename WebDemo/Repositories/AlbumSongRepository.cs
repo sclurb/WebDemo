@@ -14,6 +14,8 @@ namespace WebDemo.Repositories
 
         public AlbumSongRepository(IConfiguration configuration)
         {
+            // Where is configuration coming from?   
+            // It is commented out in Program.cs.......
             _configuration = configuration;
         }
 
@@ -50,7 +52,10 @@ namespace WebDemo.Repositories
         {
             ;
             var albums = new List<Album>();
+
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+
             var sql = "select * from Album";
 
             using (var conn = new SqlConnection(connectionString))
@@ -81,7 +86,7 @@ namespace WebDemo.Repositories
 
         public async Task<List<Song>> GetSongsAsync()
         {
-            
+
             var songs = new List<Song>();
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
             var sql = "select * from Song";
@@ -105,7 +110,7 @@ namespace WebDemo.Repositories
                         song.YouTubeUrl = Convert.ToString(rdr["YouTubeUrl"]);
                         songs.Add(song);
                     }
-                    
+
                 }
                 cmd.Connection.Close();
             }
